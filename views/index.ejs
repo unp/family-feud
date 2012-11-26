@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Family Feud</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <%#
+    <script type = "text/javascript">
+      $(document).ready(function(){
+          var socket = io.connect('http://localhost:3000');
+          socket.on('userlist', function (data) {
+            $("#userList").html("");
+            data.forEach(function(user){
+                for(var key in user){
+                    var newLi = document.createElement("li");
+                    newLi.innerHTML = user[key];
+                    $("#userList").append(newLi);
+                }
+            });
+          });
+          $("#submitUsername").click(function(){
+            console.log("Sending username");
+            var name = $("#username").val();
+            socket.emit("signup",name);
+            $("#signupForm").fadeOut();
+          });
+          socket.on('startgame',function(data){
+            $("#signup").fadeOut("slow",function(){
+                $("#enterTweet").fadeIn();
+            });
+            console.log("Game starting");
+            $("#trend").html(data.trend);
+          });
+          $("#submitTweet").click(function(){
+            var tweet = $("#inputTweet").val();
+            socket.emit("tweet",tweet);
+            $("#tweetForm").fadeOut("slow",function(){
+                $("#waiting").fadeIn();
+            });
+          });
+          socket.on("voting",function(data){
+            console.log("Voting");
+            $("#waiting").fadeOut("slow",function(){
+                $("#waiting").css("display","none");
+            });
+            for (var i = 0; i < data.length; i++){
+                var tweetObj = data[i];
+                for(var key in tweetObj){
+                    var newTweet = $(document.createElement("li"));
+                    newTweet.attr("userId",key);
+                    newTweet.html(tweetObj[key]);
+                    newTweet.addClass("voteTweet");
+                    $("#tweetList").append(newTweet);
+                }
+            }
+            attachVoteListeners();
+          });
+          
+          function attachVoteListeners(){
+            $(".voteTweet").click(function(){
+                var userId = $(this).attr("userId");
+                socket.emit("voteTweet",userId);
+                disableVoting();
+            });
+          }
+          
+          function disableVoting(){
+            $(".voteTweet").each(function(){
+                $(this).addClass("voteTweetDisabled");
+                $(this).removeClass("voteTweet");
+            });
+          }
+          
+          socket.on("winner",function(data){
+            console.log("Showing Winner");
+            $("#enterTweet").fadeOut("slow",function(){
+                $("#winner").html(data.winner);
+                $("#winningTweet").html(data.tweet);
+                $("#showWinner").fadeIn();
+            });
+          });
+      });
+    </script>
+    %>
+  </head>
+  <body>
+    <div id = "header">
+        <h1>Family Feud</h1>
+    </div>
+    <div id = "signup">
+        <div id = "signupForm">
+            <div>
+                Username : <input type = "text" id = "username" />
+                <input type = "submit" id = "submitUsername" />
+            </div>
+        </div>    
+        <h3>Users Registered:</h3>
+        <ul id = "userList">
+        
+        </ul>
+    </div>
+    <div id = "enterResponse">
+        <h2>Question : <span id = "question"></span></h2>
+        <div id = "questionForm">
+            <h3>Enter your Response : </h3>
+            <input type = "text" id = "inputResponse" />
+            <input type = "submit" id = "submitResponse" value = "Respond!" />
+        </div>
+        <div id = "waiting">
+            Please wait for other users to submit their responses...
+        </div>
+        <ul id = "responseList">
+        
+        </ul>
+    </div>
+    <div id = "showCorrect">
+        <%#
+        <h2>The Winner Was : <span id = "winner"></span> with Tweet : "<span id = "winningTweet"></span>"</h2>
+        %>
+    </div>
+  </body>
+</html>
