@@ -1,0 +1,222 @@
+body {
+	font-family: "Arial" sans-serif;
+	background: #7abcff; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #7abcff 0%, #579be0 44%, #356bc4 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#7abcff), color-stop(44%,#579be0), color-stop(100%,#356bc4)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #7abcff 0%,#579be0 44%,#356bc4 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #7abcff 0%,#579be0 44%,#356bc4 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #7abcff 0%,#579be0 44%,#356bc4 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center, #7abcff 0%,#579be0 44%,#356bc4 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#356bc4',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	color:#FFF;
+	margin-top:20px;
+	text-transform:uppercase;
+}
+
+li {
+	width:280px;
+	height:50px;
+	margin:8px;
+	line-height:26px;
+	background:#000;
+	border:3px #FFF solid;
+	list-style:none;
+	float:left;
+	font-weight:bold;
+}
+
+ul {
+	padding:0 12px 0 12px;
+}
+
+input {
+	line-height:24px;
+	padding:3px;
+}
+
+form {
+	text-align:center;
+	margin:20px;
+}
+
+.submit {
+	background:#FF6633;
+	border:3px solid #FFF;
+	color:#FFF;
+	font-weight:bold;
+	display:inline-block;
+	height:24px;
+	line-height:24px;
+	padding:3px;
+}
+
+.answer {
+	padding:12px;
+	display:inline-block;
+	width:200px;
+}
+
+.cover {
+	background:#FF9900;
+	margin:2px;
+	border:#FF0000 1px solid;
+	width:274px;
+	height:44px;
+}
+
+.number {
+	position:absolute;
+	padding:10px;
+	width:40px;
+	height:20px;
+	line-height:20px;
+	margin-left:-35px;
+	margin-top:-1px;
+	border-radius: 50%;
+	border:#F00000 3px solid;
+	background:#FF6633;
+}
+
+.points {
+	display:inline-block;
+	float:right;
+	background:#FF9900;
+	padding:12px;
+	width:20px;
+	text-align:center;
+}
+
+#team1 {
+	float:left;
+}
+
+#team2 {
+	float:right;
+}
+
+#currentPlayer {
+	background: #ca75f4; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #ca75f4 0%, #a366af 44%, #8d2eaa 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ca75f4), color-stop(44%,#a366af), color-stop(100%,#8d2eaa)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #ca75f4 0%,#a366af 44%,#8d2eaa 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #ca75f4 0%,#a366af 44%,#8d2eaa 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #ca75f4 0%,#a366af 44%,#8d2eaa 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center, #ca75f4 0%,#a366af 44%,#8d2eaa 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ca75f4', endColorstr='#8d2eaa',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	width:280px;
+	height:50px;
+	line-height:50px;
+	border:3px #FFF solid;
+	text-align:center;
+	font-weight:bold;
+	margin:10px auto;
+	font-size:40px;
+}
+
+#team2 {
+	background: #ca75f4; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #ca75f4 0%, #a366af 44%, #8d2eaa 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ca75f4), color-stop(44%,#a366af), color-stop(100%,#8d2eaa)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #ca75f4 0%,#a366af 44%,#8d2eaa 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #ca75f4 0%,#a366af 44%,#8d2eaa 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #ca75f4 0%,#a366af 44%,#8d2eaa 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center, #ca75f4 0%,#a366af 44%,#8d2eaa 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ca75f4', endColorstr='#8d2eaa',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	width:100px;
+	height:35px;
+	line-height:35px;
+	border:3px #FFF solid;
+	text-align:center;
+	font-weight:bold;
+	margin:10px auto;
+	font-size:24px;
+}
+
+#score2 {
+	position:absolute;
+	margin-left:575px;
+	margin-top:45px;
+	display:block;
+	padding:10px;
+	width:40px;
+	height:20px;
+	line-height:20px;
+	border-radius: 50%;
+	border:#FFF 3px solid;
+	background:#FF9900;
+	text-align:center;
+	font-weight:bold;
+}
+
+#team1 {
+	background: #993300; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #993300 0%, #823b25 48%, #60321b 99%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#993300), color-stop(48%,#823b25), color-stop(99%,#60321b)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #993300 0%,#823b25 48%,#60321b 99%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #993300 0%,#823b25 48%,#60321b 99%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #993300 0%,#823b25 48%,#60321b 99%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  #993300 0%,#823b25 48%,#60321b 99%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#993300', endColorstr='#60321b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	width:100px;
+	height:35px;
+	line-height:35px;
+	border:3px #FFF solid;
+	text-align:center;
+	font-weight:bold;
+	margin:10px auto;
+	font-size:24px;
+}
+
+#score1 {
+	position:absolute;
+	margin-left:-15px;
+	margin-top:45px;
+	display:block;
+	padding:10px;
+	width:40px;
+	height:20px;
+	line-height:20px;
+	border-radius: 50%;
+	border:#FFF 3px solid;
+	background:#FF9900;
+	text-align:center;
+	font-weight:bold;
+}
+
+#timer {
+	margin:auto;
+	display:inline-block;
+	padding:10px;
+	width:40px;
+	height:20px;
+	line-height:20px;
+	border-radius: 50%;
+	border:#FFF 3px solid;
+	background:#FF9900;
+	text-align:center;
+	font-weight:bold;
+}
+
+#question {
+	margin:60px auto;
+	font-size:35px;
+	font-family:Impact, Charcoal, sans-serif;
+	width:628px;
+	color:#01FFFF;
+	text-align:center;
+	text-shadow: 2px 2px 2px #000;
+	margin-bottom:20px;
+}
+
+#wrapper {
+	margin:0 auto;
+	width:628px;
+}
+
+#board {
+	height:250px;
+	width: 628px;
+	margin: auto;
+	background:#000;
+	border:3px solid #FFF;
+}
