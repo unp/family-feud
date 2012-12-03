@@ -1,35 +1,27 @@
 $(function(){
   var socket = io.connect(location.href);
   
-  $('input').bind("keydown", function(e){
+  $("input").bind("keydown", function(e){
     var code = (e.keyCode ? e.keyCode : e.which);
      if(code == 13) { //Enter keycode
      	socket.emit('familyAnswer',$("#answer").val());
+      $('input').val("");
 		console.log('Submitting ' + $('#answer').val);
      }
   });
 
-  $("#pass").click(function(){
+  $("#submit").click(function(){
+    console.log("submit clicked");
+    socket.emit('familyAnswer',$("#answer").val());
+    $('input').val("");
+    console.log('Submitting ' + $('#answer').val);
+  });
+
+  $(".pass").click(function(){
     console.log("pass clicked");
     socket.emit("pass");
   });
 
-  $("#submitUsername").click(function(){
-    console.log("Sending username");
-    var name = $("#username").val();
-    socket.emit("signup",name);
-    $("#signupForm").fadeOut();
-  });
-
-  //$('button').click(familyAnswer($('#answer').val));
-  
-  function sendMessage(){
-    var msg = $('input').val();
-    $('input').val("");
-    socket.emit('msg-to-server', { msg: msg });
-  }
-  
-	//////Code that matters///////
 	socket.on('updateBoard', function(data) {
 		var div_id = "#answer" + data.index;
 		var score_id = "#score" + data.family;
@@ -78,14 +70,4 @@ $(function(){
     $(opponent_id).css("color", "blue");
   })
 
-	//////////////////////////////
-
-  socket.on('msg-to-client', function (data) {
-    console.log(data);
-    
-    var new_li = $('<li></li>');
-    new_li.text(data["msg"]);
-    
-    $('ul').append(new_li);
-  });
 });
