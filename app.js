@@ -55,20 +55,27 @@ io.sockets.on('connection', function(socket){
     socket.broadcast.emit('userlist',users);
     userKey++;
 
-	///////// Real stuff to use ///////////
-	socket.on('familyAnswer', function(answer) {
-		for(i in topAnswers){
-			if(answer in topAnswers[i]){
-				families[currFamily].score += topAnswers[i][answer];
-				socket.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
-			}
-			else {
-				families[currFamily].currStrikes++;
-				console.log(currFamily + " has " + families[currFamily].currStrikes + " strikes.");
-			}
-		}
-	});
-	///////////////////////////////////////
+    ///////// Real stuff to use ///////////
+    socket.on('familyAnswer', function(answer) {
+        // Correct Answer
+        for(i in topAnswers){
+            if(answer in topAnswers[i]){
+                families[currFamily].score += topAnswers[i][answer];
+                socket.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
+                return;
+            }
+        }
+        // Incorrect Answer
+        families[currFamily].currStrikes++;
+        console.log(currFamily + " has " + families[currFamily].currStrikes + " strikes.");
+        socket.emit('updateStrikes', {"family":currFamily, "strikes":families[currFamily].currStrikes});
+        if (families[currFamily].currStrikes == 3){
+            swapFamily();
+            console.log("current family is now " + currFamily);
+        }
+    });
+
+    ///////////////////////////////////////
     // Signup Listener
     socket.on('signup', function(user){
         var obj = {};
@@ -78,13 +85,13 @@ io.sockets.on('connection', function(socket){
 
         // Make each user either a family member or audience
         if (userKey % 3 == 1){
-        	family1.push(obj);
+            family1.push(obj);
         }
         else if (userKey % 3 == 2){
-        	family2.push(obj);
+            family2.push(obj);
         }
         else{
-        	audience.push(obj);
+            audience.push(obj);
         }
         // Check if were at more than 2 users
         if(users.length >= 3){
@@ -122,6 +129,12 @@ io.sockets.on('connection', function(socket){
         delete clients[JSON.stringify(socket.id)];
     });
 });
+
+// Function to swap families
+function swapFamily(){
+    families[currFamily].currStrikes = 0;
+    currFamily = (currFamily == 1) ? 2 : 1;
+}
 
 // Function to find the winner
 function getWinner(){
@@ -215,5 +228,3 @@ http.listen(app.get('port'), function(){
 });
 
 getTrends();
-
-

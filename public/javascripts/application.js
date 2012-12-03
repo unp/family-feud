@@ -26,7 +26,33 @@ $(function(){
 		$(div_id).html(updatedHtml);
 		$(score_id).html(data.score);
 		$(div_id).addClass("animated flipInX");
-	});
+	});  
+
+  socket.on('updateStrikes', function(data) {
+    var strikes_id = "#strikes" + data.family;
+    var opponent_family = (data.family == 1) ? 2 : 1;
+    var opponent_strikes_id = "#strikes" + opponent_family;
+    switch (data.strikes)
+    {
+      case 0:
+        $(strikes_id).html("");
+        break;
+      case 1:
+        $(strikes_id).html("x");
+        break;
+      case 2:
+        $(strikes_id).html("xx");
+        break;
+      case 3:
+        $(strikes_id).html("xxx");
+        $(opponent_strikes_id).html("");
+        break;
+      default:
+        console.log("not supposed to happen");
+        break;
+    }
+  });
+
 	//////////////////////////////
 
   socket.on('msg-to-client', function (data) {

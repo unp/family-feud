@@ -148,6 +148,22 @@ form {
 	font-weight:bold;
 }
 
+#strikes2 {
+	position:absolute;
+	margin-left:500px;
+	margin-top:45px;
+	display:block;
+	padding:10px;
+	width:40px;
+	height:20px;
+	line-height:20px;
+	border-radius: 50%;
+	border:#FFF 3px solid;
+	background:#FF0000;
+	text-align:center;
+	font-weight:bold;
+}
+
 #team1 {
 	background: #993300; /* Old browsers */
 	background: -moz-radial-gradient(center, ellipse cover,  #993300 0%, #823b25 48%, #60321b 99%); /* FF3.6+ */
@@ -179,6 +195,22 @@ form {
 	border-radius: 50%;
 	border:#FFF 3px solid;
 	background:#FF9900;
+	text-align:center;
+	font-weight:bold;
+}
+
+#strikes1 {
+	position:absolute;
+	margin-left: 65px;
+	margin-top:45px;
+	display:block;
+	padding:10px;
+	width:40px;
+	height:20px;
+	line-height:20px;
+	border-radius: 50%;
+	border:#FFF 3px solid;
+	background:#FF0000;
 	text-align:center;
 	font-weight:bold;
 }
