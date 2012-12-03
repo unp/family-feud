@@ -45,7 +45,9 @@ var userKey = 0;
 var clients = {};
 
 ///////// Real stuff to use ///////////
-var topAnswers = {1:{"Pasta sauce":55},2:{"Cheese":43}, 3:{"Parmesean":30}, 4:{"Wine":20}, 5:{"Tomatoes":8}, 6:{"Oregano":5}}; //this should be a sorted array of the top answers
+var topAnswers = {1:{"Pasta sauce":55},2:{"Cheese":43}, 3:{"Parmesean":30}, 4:{"Wine":20}, 5:{"Tomatoes":8}, 6:{"Oregano":5}}; //this should be an array of the top answers, sorted by points
+var families = {"1":{"currStrikes":0, "score":0}, "2":{"currStrikes":0, "score":0}};
+var currFamily = 1;
 ///////////////////////////////////////
 io.sockets.on('connection', function(socket){
     clients[JSON.stringify(socket.id)] = socket;
@@ -57,7 +59,12 @@ io.sockets.on('connection', function(socket){
 	socket.on('familyAnswer', function(answer) {
 		for(i in topAnswers){
 			if(answer in topAnswers[i]){
-				socket.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i});
+				families[currFamily].score += topAnswers[i][answer];
+				socket.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
+			}
+			else {
+				families[currFamily].currStrikes++;
+				console.log(currFamily + " has " + families[currFamily].currStrikes + " strikes.");
 			}
 		}
 	});
