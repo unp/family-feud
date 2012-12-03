@@ -5,6 +5,8 @@
     <link rel='stylesheet' href='../stylesheets/style.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script type="text/JavaScript" src="../javascripts/jquery.min.js"></script>
+    <script type="text/JavaScript" src="../javascripts/application.js"></script> 
     <script type = "text/javascript">
       $(document).ready(function(){
           var socket = io.connect('http://localhost:3000');
@@ -97,20 +99,18 @@
       <div id="question">Name an ingredient you'll find in most Italian food</div>
       <div id="board">
         <ul>
-          <li><div class="answer">Item 1</div><div class="points">43</div></li>
-          <li><div class="answer">Item 2</div><div class="points">23</div></li>
-          <li><div class="answer">Item 3</div><div class="points">11</div></li>
-          <li><div class="answer">Item 4</div><div class="points">8</div></li>
-          <li><div class="answer">Item 5</div><div class="points">5</div></li>
-          <li><div class="cover" align="center"><span class="number">6</span></div></li>
+          <li id="answer1"><div class="cover" align="center"><span class="number">1</span></div></li>
+          <li id="answer2"><div class="cover" align="center"><span class="number">2</span></div></li>
+          <li id="answer3"><div class="cover" align="center"><span class="number">3</span></div></li>
+          <li id="answer4"><div class="cover" align="center"><span class="number">4</span></div></li>
+          <li id="answer5"><div class="cover" align="center"><span class="number">5</span></div></li>
+          <li id="answer6"><div class="cover" align="center"><span class="number">6</span></div></li>
         </ul>
       </div>
-      <form>
-        Your Answer: <input type="text" name="answer" size="40">
+        Your Answer: <input type="text" name="answer" id="answer" size="40">
         <span class="submit">SUBMIT</span>
         <span class="submit">PASS</span>
         <div id="timer">:14</div>
-      </form>
     </div>
   </body>
 </html>

@@ -43,11 +43,25 @@ var family2 = [];
 var audience = [];
 var userKey = 0;
 var clients = {};
+
+///////// Real stuff to use ///////////
+var topAnswers = {1:{"Pasta sauce":55},2:{"Cheese":43}, 3:{"Parmesean":30}, 4:{"Wine":20}, 5:{"Tomatoes":8}, 6:{"Oregano":5}}; //this should be a sorted array of the top answers
+///////////////////////////////////////
 io.sockets.on('connection', function(socket){
     clients[JSON.stringify(socket.id)] = socket;
     socket.emit('userlist',users);
     socket.broadcast.emit('userlist',users);
     userKey++;
+
+	///////// Real stuff to use ///////////
+	socket.on('familyAnswer', function(answer) {
+		for(i in topAnswers){
+			if(answer in topAnswers[i]){
+				socket.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i});
+			}
+		}
+	});
+	///////////////////////////////////////
     // Signup Listener
     socket.on('signup', function(user){
         var obj = {};
