@@ -25,6 +25,7 @@ $(function(){
 		var updatedHtml = '<div class="answer">' + data.answer + '</div><div class="points">' + data.points + '</div>';
 		$(div_id).html(updatedHtml);
 		$(score_id).html(data.score);
+		$(div_id).addClass("animated flipInX");
 	});
 	//////////////////////////////
 
