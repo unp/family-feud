@@ -88,10 +88,12 @@ form {
 
 #team1 {
 	float:left;
+	color:red;
 }
 
 #team2 {
 	float:right;
+	color:blue
 }
 
 #currentPlayer {

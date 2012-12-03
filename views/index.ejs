@@ -8,82 +8,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/JavaScript" src="../javascripts/jquery.min.js"></script>
     <script type="text/JavaScript" src="../javascripts/application.js"></script> 
-    <script type = "text/javascript">
-      $(document).ready(function(){
-          var socket = io.connect('http://localhost:3000');
-          socket.on('userlist', function (data) {
-            $("#userList").html("");
-            data.forEach(function(user){
-                for(var key in user){
-                    var newLi = document.createElement("li");
-                    newLi.innerHTML = user[key];
-                    $("#userList").append(newLi);
-                }
-            });
-          });
-          $("#submitUsername").click(function(){
-            console.log("Sending username");
-            var name = $("#username").val();
-            socket.emit("signup",name);
-            $("#signupForm").fadeOut();
-          });
-          socket.on('startgame',function(data){
-            $("#signup").fadeOut("slow",function(){
-                $("#enterTweet").fadeIn();
-            });
-            console.log("Game starting");
-            $("#trend").html(data.trend);
-          });
-          $("#submitTweet").click(function(){
-            var tweet = $("#inputTweet").val();
-            socket.emit("tweet",tweet);
-            $("#tweetForm").fadeOut("slow",function(){
-                $("#waiting").fadeIn();
-            });
-          });
-          socket.on("voting",function(data){
-            console.log("Voting");
-            $("#waiting").fadeOut("slow",function(){
-                $("#waiting").css("display","none");
-            });
-            for (var i = 0; i < data.length; i++){
-                var tweetObj = data[i];
-                for(var key in tweetObj){
-                    var newTweet = $(document.createElement("li"));
-                    newTweet.attr("userId",key);
-                    newTweet.html(tweetObj[key]);
-                    newTweet.addClass("voteTweet");
-                    $("#tweetList").append(newTweet);
-                }
-            }
-            attachVoteListeners();
-          });
-          
-          function attachVoteListeners(){
-            $(".voteTweet").click(function(){
-                var userId = $(this).attr("userId");
-                socket.emit("voteTweet",userId);
-                disableVoting();
-            });
-          }
-          
-          function disableVoting(){
-            $(".voteTweet").each(function(){
-                $(this).addClass("voteTweetDisabled");
-                $(this).removeClass("voteTweet");
-            });
-          }
-          
-          socket.on("winner",function(data){
-            console.log("Showing Winner");
-            $("#enterTweet").fadeOut("slow",function(){
-                $("#winner").html(data.winner);
-                $("#winningTweet").html(data.tweet);
-                $("#showWinner").fadeIn();
-            });
-          });
-      });
-    </script>
   </head>
   <body>
     <div id="wrapper">
@@ -112,7 +36,7 @@
       </div>
         Your Answer: <input type="text" name="answer" id="answer" size="40">
         <span class="submit">SUBMIT</span>
-        <span class="submit">PASS</span>
+        <button class="pass">PASS</button>
         <div id="timer">:14</div>
     </div>
   </body>
