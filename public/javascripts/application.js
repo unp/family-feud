@@ -1,10 +1,13 @@
 $(function(){
+
+  // Desktop Version
   var socket = io.connect(location.href);
 
   $("#login").fadeIn();
   $("#wait").hide();
   $("#game").hide();
   $("#end").hide();
+  $("#mobile").hide();
 
   $("#submitUsername").click(function(){
     console.log("Sending username");
@@ -115,5 +118,22 @@ $(function(){
     $(family_id).css("color", "red");
     $(opponent_id).css("color", "blue");
   });
+
+
+  // Mobile Version
+  function isiPhone(){
+    return (
+          (navigator.platform.indexOf("iPhone") != -1) ||
+          (navigator.platform.indexOf("iPod") != -1)
+      );
+  }
+
+  if(isiPhone()){
+      $("#login").hide();
+      $("#wait").hide();
+      $("#game").hide();
+      $("#end").hide();
+      $("#mobile").show();
+  }
 
 });
