@@ -82,6 +82,7 @@ Question.findOne({id:1}, function (err, q){
 		topAnswers[i] = obj;
 	}
 	console.log(topAnswers);
+	console.log(question);
 });
 
 ///////// Real stuff to use ///////////
@@ -90,7 +91,7 @@ var families = {"1":{"currStrikes":0, "score":0}, "2":{"currStrikes":0, "score":
 var currFamily = 1;
 ///////////////////////////////////////
 io.sockets.on('connection', function(socket){
-	socket.emit('displayQuestion', question);
+  socket.emit('displayQuestion', question);
   socket.emit('hideTextbox');
     ///////// Real stuff to use ///////////
     socket.on('familyAnswer', function(answer) {

@@ -57,19 +57,20 @@ $(function(){
 	
   socket.on('hideTextbox', function(){
     $("#answer").hide();
+	$("#yourAnswer").hide();
     $("#submit").hide();
     $("#pass").hide();
   });
 
   socket.on('showTextbox', function(){
     $("#answer").fadeIn();
+	$("#yourAnswer").fadeIn();
     $("#submit").fadeIn();
     $("#pass").fadeIn();
   });
 
 	socket.on('displayQuestion', function(question) {
 		$('#question').html(question);
-		console.log('question');
 	});
 
   socket.on('waiting', function(){

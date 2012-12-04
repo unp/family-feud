@@ -252,20 +252,6 @@ form {
 	font-weight:bold;
 }
 
-#timer {
-	margin:auto;
-	display:inline-block;
-	padding:10px;
-	width:40px;
-	height:20px;
-	line-height:20px;
-	border-radius: 50%;
-	border:#FFF 3px solid;
-	background:#FF9900;
-	text-align:center;
-	font-weight:bold;
-}
-
 #question {
 	margin:60px auto;
 	font-size:35px;
