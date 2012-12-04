@@ -89,6 +89,7 @@ Question.findOne({id:1}, function (err, q){
 //var topAnswers = {1:{"Pasta sauce":55},2:{"Cheese":43}, 3:{"Parmesean":30}, 4:{"Wine":20}, 5:{"Tomatoes":8}, 6:{"Oregano":5}}; //this should be an array of the top answers, sorted by points
 var families = {"1":{"currStrikes":0, "score":0}, "2":{"currStrikes":0, "score":0}};
 var currFamily = 1;
+var numCorrect = 0;
 ///////////////////////////////////////
 io.sockets.on('connection', function(socket){
   socket.emit('displayQuestion', question);
@@ -98,10 +99,15 @@ io.sockets.on('connection', function(socket){
         // Correct Answer
         for(i in topAnswers){
             if(answer in topAnswers[i]){
-                families[currFamily].score += topAnswers[i][answer];
-                socket.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
-                socket.broadcast.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
-                return;
+              numCorrect++;
+              families[currFamily].score += topAnswers[i][answer];
+              socket.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
+              socket.broadcast.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
+              if (numCorrect == 6){
+                socket.emit('endGame');
+                socket.broadcast.emit('endGame');
+              }
+              return;
             }
         }
         // Incorrect Answer

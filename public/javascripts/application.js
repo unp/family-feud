@@ -6,9 +6,6 @@ $(function(){
 	        (navigator.platform.indexOf("iPod") != -1)
 	    );
 	}
-	if(isiPhone()){
-	    window.location = "http://www.google.com";
-	}
 
   // Desktop Version
   var socket = io.connect(location.href);
@@ -46,9 +43,10 @@ $(function(){
     socket.emit("pass");
   });
 
-  $("#mobile").click(function(){
+  $("#mobileQuestion").click(function(){
     console.log("mobile button clicked");
     var question = $('#mobileQuestion').val();
+    console.log(question);
     $('#mobileQuestion').val("");
     socket.emit("addQuestion", question);
   });
