@@ -46,6 +46,7 @@ $(function(){
   $("#mobileButton").click(function(){
     console.log("mobile button clicked");
     var question = $('#mobileQuestion').val();
+    console.log(question);
     $('#mobileQuestion').val("");
     socket.emit("addQuestion", question);
   });

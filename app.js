@@ -87,6 +87,11 @@ Question.findOne({id:1}, function (err, q){
 
 var families = {"1":{"currStrikes":0, "score":0}, "2":{"currStrikes":0, "score":0}};
 var currFamily = 1;
+<<<<<<< HEAD
+=======
+var numCorrect = 0;
+///////////////////////////////////////
+>>>>>>> 759ede10dcb3cb55273a9720415982ec4f03cb5a
 io.sockets.on('connection', function(socket){
   socket.emit('displayQuestion', question);
   socket.emit('hideTextbox');
@@ -94,10 +99,15 @@ io.sockets.on('connection', function(socket){
         // Correct Answer
         for(i in topAnswers){
             if(answer in topAnswers[i]){
-                families[currFamily].score += topAnswers[i][answer];
-                socket.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
-                socket.broadcast.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
-                return;
+              numCorrect++;
+              families[currFamily].score += topAnswers[i][answer];
+              socket.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
+              socket.broadcast.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
+              if (numCorrect == 6){
+                socket.emit('endGame');
+                socket.broadcast.emit('endGame');
+              }
+              return;
             }
         }
         // Incorrect Answer
