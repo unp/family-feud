@@ -87,11 +87,9 @@ Question.findOne({id:1}, function (err, q){
 
 var families = {"1":{"currStrikes":0, "score":0}, "2":{"currStrikes":0, "score":0}};
 var currFamily = 1;
-<<<<<<< HEAD
-=======
+
 var numCorrect = 0;
-///////////////////////////////////////
->>>>>>> 759ede10dcb3cb55273a9720415982ec4f03cb5a
+
 io.sockets.on('connection', function(socket){
   socket.emit('displayQuestion', question);
   socket.emit('hideTextbox');
@@ -180,8 +178,6 @@ function swapFamily(){
     families[currFamily].currStrikes = 0;
     currFamily = (currFamily == 1) ? 2 : 1;
 }
-
-
 
 // Start express server
 http.listen(app.get('port'), function(){
