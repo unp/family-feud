@@ -85,15 +85,11 @@ Question.findOne({id:1}, function (err, q){
 	console.log(question);
 });
 
-///////// Real stuff to use ///////////
-//var topAnswers = {1:{"Pasta sauce":55},2:{"Cheese":43}, 3:{"Parmesean":30}, 4:{"Wine":20}, 5:{"Tomatoes":8}, 6:{"Oregano":5}}; //this should be an array of the top answers, sorted by points
 var families = {"1":{"currStrikes":0, "score":0}, "2":{"currStrikes":0, "score":0}};
 var currFamily = 1;
-///////////////////////////////////////
 io.sockets.on('connection', function(socket){
   socket.emit('displayQuestion', question);
   socket.emit('hideTextbox');
-    ///////// Real stuff to use ///////////
     socket.on('familyAnswer', function(answer) {
         // Correct Answer
         for(i in topAnswers){
@@ -122,7 +118,6 @@ io.sockets.on('connection', function(socket){
         }
     });
 
-    ///////////////////////////////////////
     // Signup Listener
     socket.on('signup', function(user){
         userKey++;
@@ -159,7 +154,7 @@ io.sockets.on('connection', function(socket){
     });    
 
     socket.on("addQuestion", function(question){
-      var q2 = new Question(eval(question));
+      var q2 = new Question(JSON.stringify(eval("(" + question + ")")));
       q2.save(function (err, q2) {
         if (err){ 
           console.log("Failed to save.");
