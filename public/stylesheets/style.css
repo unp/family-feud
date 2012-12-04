@@ -254,9 +254,10 @@ form {
 
 #question {
 	margin:60px auto;
+	margin-top: 120px;
 	font-size:35px;
 	font-family:Impact, Charcoal, sans-serif;
-	width:628px;
+	width:500px;
 	color:#01FFFF;
 	text-align:center;
 	text-shadow: 2px 2px 2px #000;
