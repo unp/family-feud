@@ -6,6 +6,19 @@
 var express = require('express')
   , routes = require('./routes/slash')
   , http = require('http')
+  ,	mongoose = require('mongoose')
+  , db = mongoose.createConnection('localhost', 'test')
+  , questionSchema = mongoose.Schema({
+		id: 'Number',
+		question: 'String',
+		1:{'answer':'String', 'points':'Number'},
+		2:{'answer':'String', 'points':'Number'},
+		3:{'answer':'String', 'points':'Number'},
+		4:{'answer':'String', 'points':'Number'},
+		5:{'answer':'String', 'points':'Number'},
+		6:{'answer':'String', 'points':'Number'}
+	})
+  , Question = db.model("Question", questionSchema)
   , path = require('path');
 
 var app = express();
@@ -33,17 +46,51 @@ http = http.createServer(app);
 // Set up socket.io server
 var io = require('socket.io').listen(http);
 
+// Seed the DB
+var q1 = new Question({
+	id:1,
+	question:'Name Something People Like Doing when Listening to Music',
+	1:{'answer':'Cleaning', 'points':21}, 
+	2:{'answer':'Exercising', 'points':18},
+	3:{'answer':'Singing', 'points':18},
+	4:{'answer':'Gardening', 'points':12},
+	5:{'answer':'Eating', 'points':10},
+	6:{'answer':'Dancing', 'points':8}});
+
+q1.save(function (err, q1) {
+	if (err){ 
+		console.log("Failed to save.");
+	}
+});
+
 /* SOCKET.IO FUNCTIONS */
 var users = [];
 var userKey = 0;
+var topAnswers = {};
+var question = "";
+
+Question.findOne({id:1}, function (err, q){
+	if(err) {
+		console.log("Failed to find record.");
+	}
+	question = q.question;
+	for(var i = 1; i <= 6; i++){
+		var answer = q[i]["answer"];
+		var points = q[i]["points"];
+		var obj = {};
+		obj[answer] = points;
+		topAnswers[i] = obj;
+	}
+	console.log(topAnswers);
+});
 
 ///////// Real stuff to use ///////////
-var topAnswers = {1:{"Pasta sauce":55},2:{"Cheese":43}, 3:{"Parmesean":30}, 4:{"Wine":20}, 5:{"Tomatoes":8}, 6:{"Oregano":5}}; //this should be an array of the top answers, sorted by points
+//var topAnswers = {1:{"Pasta sauce":55},2:{"Cheese":43}, 3:{"Parmesean":30}, 4:{"Wine":20}, 5:{"Tomatoes":8}, 6:{"Oregano":5}}; //this should be an array of the top answers, sorted by points
 var families = {"1":{"currStrikes":0, "score":0}, "2":{"currStrikes":0, "score":0}};
 var currFamily = 1;
 ///////////////////////////////////////
 io.sockets.on('connection', function(socket){
-
+	socket.emit('displayQuestion', question);
     ///////// Real stuff to use ///////////
     socket.on('familyAnswer', function(answer) {
         // Correct Answer

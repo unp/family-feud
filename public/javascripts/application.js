@@ -39,7 +39,12 @@ $(function(){
 		$(div_id).html(updatedHtml);
 		$(score_id).html(data.score);
 		$(div_id).addClass("animated flipInX");
-	});  
+	});
+	
+	socket.on('displayQuestion', function(question) {
+		$('#question').html(question);
+		console.log('question');
+	});
 
   socket.on('waiting', function(){
     $("#login").fadeOut();

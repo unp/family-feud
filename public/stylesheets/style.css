@@ -62,6 +62,12 @@ form {
    vertical-align: middle;
 }
 
+.answer {
+	padding:12px;
+	display:inline-block;
+	width:200px;
+}
+
 #pass {
    border-top: 1px solid #000000;
    background: #ffaa00;
