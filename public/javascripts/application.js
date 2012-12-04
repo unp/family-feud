@@ -4,6 +4,7 @@ $(function(){
   $("#login").fadeIn();
   $("#wait").hide();
   $("#game").hide();
+  $("#end").hide();
 
   $("#submitUsername").click(function(){
     console.log("Sending username");
@@ -41,6 +42,18 @@ $(function(){
 		$(div_id).addClass("animated flipInX");
 	});
 	
+  socket.on('hideTextbox', function(){
+    $("#answer").hide();
+    $("#submit").hide();
+    $("#pass").hide();
+  });
+
+  socket.on('showTextbox', function(){
+    $("#answer").fadeIn();
+    $("#submit").fadeIn();
+    $("#pass").fadeIn();
+  });
+
 	socket.on('displayQuestion', function(question) {
 		$('#question').html(question);
 		console.log('question');
@@ -54,9 +67,15 @@ $(function(){
   socket.on('start', function(users){
     console.log(users);
     $("#wait").fadeOut();
+    $("#login").fadeOut();
     $("#game").fadeIn();
     $("#team1").html(users[0]);
     $("#team2").html(users[1]);
+  })
+
+  socket.on('endGame', function(){
+    $("#game").fadeOut();
+    $("#end").fadeIn();
   })
 
   socket.on('updateStrikes', function(data) {

@@ -91,6 +91,7 @@ var currFamily = 1;
 ///////////////////////////////////////
 io.sockets.on('connection', function(socket){
 	socket.emit('displayQuestion', question);
+  socket.emit('hideTextbox');
     ///////// Real stuff to use ///////////
     socket.on('familyAnswer', function(answer) {
         // Correct Answer
@@ -98,6 +99,7 @@ io.sockets.on('connection', function(socket){
             if(answer in topAnswers[i]){
                 families[currFamily].score += topAnswers[i][answer];
                 socket.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
+                socket.broadcast.emit('updateBoard',{"answer":answer,"points":topAnswers[i][answer], "index":i, "family":currFamily, "score":families[currFamily].score});
                 return;
             }
         }
@@ -105,7 +107,15 @@ io.sockets.on('connection', function(socket){
         families[currFamily].currStrikes++;
         console.log(currFamily + " has " + families[currFamily].currStrikes + " strikes.");
         socket.emit('updateStrikes', {"family":currFamily, "strikes":families[currFamily].currStrikes});
+        socket.broadcast.emit('updateStrikes', {"family":currFamily, "strikes":families[currFamily].currStrikes});
         if (families[currFamily].currStrikes == 3){
+            if (currFamily == 2){
+              socket.emit('endGame');
+              socket.broadcast.emit('endGame');
+              return;
+            }
+            socket.emit('hideTextbox');
+            socket.broadcast.emit('showTextbox');
             swapFamily();
             console.log("current family is now " + currFamily);
         }
@@ -118,6 +128,7 @@ io.sockets.on('connection', function(socket){
         users.push(user);
         // Check if were exactly 2 users
         if(users.length == 2){
+            socket.broadcast.emit('showTextbox');
             socket.emit('start', users);
             socket.broadcast.emit('start', users);
         }
@@ -127,15 +138,24 @@ io.sockets.on('connection', function(socket){
     });
 
     socket.on("pass", function(){
-        families[currFamily].currStrikes = 0;
-        socket.emit('updateStrikes', {"family":currFamily, "strikes":families[currFamily].currStrikes});
-        swapFamily();
-        families[currFamily].currStrikes = 0;
-        console.log("pass called. current family is " + currFamily);
-        socket.emit('updateStrikes', {"family":currFamily, "strikes":families[currFamily].currStrikes});
-        socket.emit('updateFamily', currFamily);
+      if (currFamily == 2){
+        socket.emit('endGame');
+        socket.broadcast.emit('endGame');
+        return;
+      }
+      families[currFamily].currStrikes = 0;
+      socket.emit('updateStrikes', {"family":currFamily, "strikes":families[currFamily].currStrikes});
+      socket.broadcast.emit('updateStrikes', {"family":currFamily, "strikes":families[currFamily].currStrikes});
+      socket.emit('hideTextbox');
+      socket.broadcast.emit('showTextbox');
+      swapFamily();
+      families[currFamily].currStrikes = 0;
+      console.log("pass called. current family is " + currFamily);
+      socket.emit('updateStrikes', {"family":currFamily, "strikes":families[currFamily].currStrikes});
+      socket.broadcast.emit('updateStrikes', {"family":currFamily, "strikes":families[currFamily].currStrikes});
+      socket.emit('updateFamily', currFamily);
+      socket.broadcast.emit('updateFamily', currFamily);
     });    
-
 });
 
 // Function to swap families
@@ -144,6 +164,8 @@ function swapFamily(){
     families[currFamily].currStrikes = 0;
     currFamily = (currFamily == 1) ? 2 : 1;
 }
+
+
 
 // Start express server
 http.listen(app.get('port'), function(){
