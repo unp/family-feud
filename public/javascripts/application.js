@@ -1,5 +1,15 @@
 $(function(){
   var socket = io.connect(location.href);
+
+  $("#login").fadeIn();
+  $("#wait").hide();
+  $("#game").hide();
+
+  $("#submitUsername").click(function(){
+    console.log("Sending username");
+    var name = $("#username").val();
+    socket.emit("signup",name);
+  });
   
   $("input").bind("keydown", function(e){
     var code = (e.keyCode ? e.keyCode : e.which);
@@ -10,14 +20,14 @@ $(function(){
      }
   });
 
-  $("#submit").click(function(){
+  $(".submit").click(function(){
     console.log("submit clicked");
     socket.emit('familyAnswer',$("#answer").val());
     $('input').val("");
     console.log('Submitting ' + $('#answer').val);
   });
 
-  $(".pass").click(function(){
+  $("#pass").click(function(){
     console.log("pass clicked");
     socket.emit("pass");
   });
@@ -30,6 +40,19 @@ $(function(){
 		$(score_id).html(data.score);
 		$(div_id).addClass("animated flipInX");
 	});  
+
+  socket.on('waiting', function(){
+    $("#login").fadeOut();
+    $("#wait").fadeIn();
+  });
+
+  socket.on('start', function(users){
+    console.log(users);
+    $("#wait").fadeOut();
+    $("#game").fadeIn();
+    $("#team1").html(users[0]);
+    $("#team2").html(users[1]);
+  })
 
   socket.on('updateStrikes', function(data) {
     var strikes_id = "#strikes" + data.family;
@@ -68,6 +91,6 @@ $(function(){
     var opponent_id = "#team" + opponent_family;
     $(family_id).css("color", "red");
     $(opponent_id).css("color", "blue");
-  })
+  });
 
 });

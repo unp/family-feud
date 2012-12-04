@@ -10,34 +10,43 @@
     <script type="text/JavaScript" src="../javascripts/application.js"></script> 
   </head>
   <body>
-    <div id="wrapper">
-      <div align="center"><img src="images/logo.png" height="150px" /></div><br />
-      <div id="team1">
-        Team 1
+    <div id="login">
+      Your Username: <input type="text" id="username" size="40">
+      <button id="submitUsername">SUBMIT</button>
+    </div>
+    <div id="wait">
+      Waiting for another player...
+    </div>
+    <div id="game">
+      <div id="wrapper">
+        <div align="center"><img src="images/logo.png" height="150px" /></div><br />
+        <div id="team1">
+          Team 1
+        </div>
+        <div id="score1">0</div>
+        <div id="strikes1"></div>
+        <div id="team2">
+          Team 2
+        </div>
+        <div id="score2">0</div>
+        <div id="strikes2"></div>
+        <div id="currentPlayer">John</div>
+        <div id="question">Name an ingredient you'll find in most Italian food</div>
+        <div id="board">
+          <ul>
+            <li id="answer1"><div class="cover" align="center"><span class="number">1</span></div></li>
+            <li id="answer2"><div class="cover" align="center"><span class="number">2</span></div></li>
+            <li id="answer3"><div class="cover" align="center"><span class="number">3</span></div></li>
+            <li id="answer4"><div class="cover" align="center"><span class="number">4</span></div></li>
+            <li id="answer5"><div class="cover" align="center"><span class="number">5</span></div></li>
+            <li id="answer6"><div class="cover" align="center"><span class="number">6</span></div></li>
+          </ul>
+        </div>
+          Your Answer: <input type="text" name="answer" id="answer" size="40">
+          <button id="submit">SUBMIT</button>
+          <button class="pass">PASS</button>
+          <div id="timer">:14</div>
       </div>
-      <div id="score1">0</div>
-      <div id="strikes1"></div>
-      <div id="team2">
-        Team 2
-      </div>
-      <div id="score2">0</div>
-      <div id="strikes2"></div>
-      <div id="currentPlayer">John</div>
-      <div id="question">Name an ingredient you'll find in most Italian food</div>
-      <div id="board">
-        <ul>
-          <li id="answer1"><div class="cover" align="center"><span class="number">1</span></div></li>
-          <li id="answer2"><div class="cover" align="center"><span class="number">2</span></div></li>
-          <li id="answer3"><div class="cover" align="center"><span class="number">3</span></div></li>
-          <li id="answer4"><div class="cover" align="center"><span class="number">4</span></div></li>
-          <li id="answer5"><div class="cover" align="center"><span class="number">5</span></div></li>
-          <li id="answer6"><div class="cover" align="center"><span class="number">6</span></div></li>
-        </ul>
-      </div>
-        Your Answer: <input type="text" name="answer" id="answer" size="40">
-        <button id="submit">SUBMIT</button>
-        <button class="pass">PASS</button>
-        <div id="timer">:14</div>
     </div>
   </body>
 </html>
