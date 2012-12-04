@@ -46,6 +46,13 @@ $(function(){
     socket.emit("pass");
   });
 
+  $("#mobile").click(function(){
+    console.log("mobile button clicked");
+    var question = $('#mobileQuestion').val();
+    $('#mobileQuestion').val("");
+    socket.emit("addQuestion", question);
+  });
+
 	socket.on('updateBoard', function(data) {
 		var div_id = "#answer" + data.index;
 		var score_id = "#score" + data.family;

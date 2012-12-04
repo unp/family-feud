@@ -157,6 +157,16 @@ io.sockets.on('connection', function(socket){
       socket.emit('updateFamily', currFamily);
       socket.broadcast.emit('updateFamily', currFamily);
     });    
+
+    socket.on("addQuestion", function(question){
+      var q2 = new Question(eval(question));
+      q2.save(function (err, q2) {
+        if (err){ 
+          console.log("Failed to save.");
+        }
+
+      });
+    });
 });
 
 // Function to swap families
