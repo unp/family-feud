@@ -43,7 +43,7 @@ $(function(){
     socket.emit("pass");
   });
 
-  $("#mobileQuestion").click(function(){
+  $("#mobileButton").click(function(){
     console.log("mobile button clicked");
     var question = $('#mobileQuestion').val();
     console.log(question);
