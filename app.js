@@ -7,7 +7,7 @@ var express = require('express')
   , routes = require('./routes/slash')
   , http = require('http')
   ,	mongoose = require('mongoose')
-  , db = mongoose.createConnection('localhost', 'test')
+  , db = mongoose.connect('mongodb://nodejitsu_unp:u4r5mosasltba0i8vortsg92d9@ds043947.mongolab.com:43947/nodejitsu_unp_nodejitsudb5991014428')
   , questionSchema = mongoose.Schema({
 		id: 'Number',
 		question: 'String',
