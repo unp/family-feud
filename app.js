@@ -69,7 +69,6 @@ io.sockets.on('connection', function(socket){
     socket.on('signup', function(user){
         userKey++;
         users.push(user);
-        console.log(users);
         // Check if were exactly 2 users
         if(users.length == 2){
             socket.emit('start', users);

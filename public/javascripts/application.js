@@ -20,7 +20,7 @@ $(function(){
      }
   });
 
-  $(".submit").click(function(){
+  $("#submit").click(function(){
     console.log("submit clicked");
     socket.emit('familyAnswer',$("#answer").val());
     $('input').val("");
@@ -72,7 +72,6 @@ $(function(){
       case 3:
         console.log("case 3");
         $(strikes_id).html("xxx");
-        $(opponent_strikes_id).html("");
         $("#team" + data.family).css("color", "blue");
         $("#team" + opponent_family).css("color", "red");
         break;
